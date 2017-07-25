@@ -21,7 +21,7 @@
         </activity>
         <activity
             android:name=".TelaFuncionalActivity"
-            android:label="@string/title_activity_tela_funcional"
+            android:label="Monitor"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
