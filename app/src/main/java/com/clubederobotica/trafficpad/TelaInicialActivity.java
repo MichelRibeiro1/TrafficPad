@@ -25,7 +25,7 @@ public class TelaInicialActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Aperte no ícone para iniciar a aplicação.", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Aperte no carro para iniciar o aplicativo.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
