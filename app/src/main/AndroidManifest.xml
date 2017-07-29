@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.clubederobotica.trafficpad">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.clubederobotica.trafficpad"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-sdk tools:overrideLibrary="" />
+
+
 
     <application
         android:allowBackup="true"
@@ -22,7 +31,7 @@
         <activity
             android:name=".TelaFuncionalActivity"
             android:label="Monitor"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
-
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 </manifest>
