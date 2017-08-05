@@ -31,6 +31,8 @@ import be.tarsos.dsp.pitch.PitchProcessor.PitchEstimationAlgorithm;
 public class TelaFuncionalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
+    Thread AudioInputThread = new Thread(dispatcher,"Audio Dispatcher");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +45,12 @@ public class TelaFuncionalActivity extends AppCompatActivity
         }
 
 
-        AudioDispatcher dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(22050,1024,0);
 
 
         dispatcher.addAudioProcessor(new PitchProcessor(PitchEstimationAlgorithm.FFT_YIN, 22050, 1024, new PitchDetectionHandler() {
 
             @Override
-            public void handlePitch(PitchDetectionResult pitchDetectionResult,
+            public void handlePitch(final PitchDetectionResult pitchDetectionResult,
                                     AudioEvent audioEvent) {
                 final float pitchInHz = pitchDetectionResult.getPitch();
                 runOnUiThread(new Runnable() {
@@ -57,12 +58,15 @@ public class TelaFuncionalActivity extends AppCompatActivity
                     public void run() {
                         TextView text = (TextView) findViewById(R.id.textView1);
                         text.setText("" + pitchInHz);
+                        if(pitchInHz > 1500){
+                            Toast.makeText(getApplicationContext(), "Atenção aos retrovisores!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
             }
         }));
-        new Thread(dispatcher,"Audio Dispatcher").start();
+        AudioInputThread.start();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +128,7 @@ public class TelaFuncionalActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         switch(id){
             case R.id.action_close:
+                dispatcher.stop();
                 finish();
                 break;
             case R.id.action_sobre:
