@@ -59,15 +59,17 @@ public class TelaFuncionalActivity extends AppCompatActivity
                         TextView text = (TextView) findViewById(R.id.textView1);
                         text.setText("" + pitchInHz);
                         if(pitchInHz > 1500){
-                            Toast.makeText(getApplicationContext(), "Atenção aos retrovisores!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Atenção aos retrovisores!", Toast.LENGTH_SHORT).show();
+                            Snackbar.make(text, "Atenção aos retrovisores!", Snackbar.LENGTH_LONG)
+                                    .setAction("Action", null).show();
                         }
+
                     }
                 });
 
             }
         }));
         AudioInputThread.start();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
