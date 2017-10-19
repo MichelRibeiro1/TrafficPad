@@ -6,7 +6,9 @@
     android:versionName="1.0">
 
     <uses-sdk tools:overrideLibrary="" />
-
+    
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
@@ -23,6 +25,11 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity
+            android:name=".DevicesList"
+            android:label="Dispositivos Pareados"
+            android:theme="@style/AlertDialog.AppCompat.Light"
+            />
         <activity
             android:name=".TelaFuncionalActivity"
             android:label="Monitor"

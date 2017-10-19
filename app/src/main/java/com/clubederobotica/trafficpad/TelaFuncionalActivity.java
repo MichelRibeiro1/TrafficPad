@@ -1,5 +1,6 @@
 package com.clubederobotica.trafficpad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.Fragment;
 
-
+import com.clubederobotica.trafficpad.TelaInicialActivity;
+import com.clubederobotica.trafficpad.TelaInicialActivity.ConnectedThread;
 import be.tarsos.dsp.AudioProcessor;
 import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioEvent;
@@ -59,9 +61,12 @@ public class TelaFuncionalActivity extends AppCompatActivity
                         TextView text = (TextView) findViewById(R.id.textView1);
                         text.setText("" + pitchInHz);
                         if(pitchInHz > 1500){
-//                            Toast.makeText(getApplicationContext(), "Atenção aos retrovisores!", Toast.LENGTH_SHORT).show();
-                            Snackbar.make(text, "Atenção aos retrovisores!", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            if (TelaInicialActivity.isConexaoBT()){
+                                TelaInicialActivity.sendAlerta("ALERTA");
+                                Toast.makeText(getApplicationContext(), "Atenção aos retrovisores!", Toast.LENGTH_SHORT).show();
+                            } else{
+                                Toast.makeText(getApplicationContext(), "Atenção aos retrovisores! - Bluetooth desligado", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                     }
@@ -147,15 +152,17 @@ public class TelaFuncionalActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_pareados) {
+            Intent intent = new Intent(TelaFuncionalActivity.this, DevicesList.class);
+            startActivityForResult(intent, TelaInicialActivity.getSolicitaBt());
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_info) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_config) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_contato) {
 
         }
 
@@ -163,4 +170,5 @@ public class TelaFuncionalActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
